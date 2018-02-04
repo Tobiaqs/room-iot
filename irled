@@ -1,0 +1,3 @@
+#!/bin/bash
+curl -b "secret=$ROOMIOT_SECRET" https://interballs.herokuapp.com/set_color/$1
+echo

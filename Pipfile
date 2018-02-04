@@ -1,0 +1,16 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+broadlink = {git = "https://github.com/mjg59/python-broadlink.git"}
+netaddr = "*"
+flask = "*"
+
+
+[dev-packages]
+
