@@ -10,6 +10,7 @@ name = "pypi"
 broadlink = {git = "https://github.com/mjg59/python-broadlink.git"}
 netaddr = "*"
 flask = "*"
+requests = "*"
 
 
 [dev-packages]

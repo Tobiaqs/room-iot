@@ -1,10 +1,11 @@
 import broadlink, netaddr, time
 from flask import Flask, jsonify, Response, jsonify, request
 from os import environ
+import requests
 
 app = Flask(__name__)
 
-RM3Device = broadlink.rm((environ["RM3_IP"], int(environ["RM3_PORT"])), netaddr.EUI(environ["RM3_MAC"]))
+RM3Device = broadlink.rm((environ["HOME_IP"], int(environ["HOME_RM3_PORT"])), netaddr.EUI(environ["HOME_RM3_MAC"]))
 RM3Device.auth()
 
 commands = {
@@ -112,9 +113,19 @@ def get_colors():
     return jsonify(list(colors.keys()))
     
 @app.route("/set_main_lights/<mode>", methods=["GET"])
-def set_main_lights():
+def set_main_lights(mode):
     if not check_cookie():
         return Response("go away", mimetype="text/plain")
+
+    if mode != "off" and mode != "on":
+        return Response("???", mimetype="text/plain")
+
+    r = requests.get("http://" + environ["HOME_IP"] + ":" + environ["HOME_ESP_PORT"] + "/turn/" + mode + "?secret=" + environ["SECRET"])
+
+    if r.status_code == 404:
+        return Response("???", mimetype="text/plain")
+    else:
+        return Response("done", mimetype="text/plain")
 
 @app.route("/special_command/stereo_set_vol/<volume>", methods=["GET"])
 def stereo_vol_min(volume):
