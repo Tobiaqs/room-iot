@@ -111,6 +111,18 @@ def get_colors():
         return Response("go away", mimetype="text/plain")
 
     return jsonify(list(colors.keys()))
+
+@app.route("/get_main_lights", methods=["GET"])
+def get_main_lights():
+    if not check_cookie():
+        return Response("go away", mimetype="text/plain")
+
+    r = requests.get("http://" + environ["HOME_IP"] + ":" + environ["HOME_ESP_PORT"] + "/status?secret=" + environ["SECRET"])
+
+    if r.status_code == 404:
+        return Response("???", mimetype="text/plain")
+    else:
+        return Response(r.text, mimetype="text/plain")
     
 @app.route("/set_main_lights/<mode>", methods=["GET"])
 def set_main_lights(mode):
