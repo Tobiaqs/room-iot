@@ -5,7 +5,7 @@ import requests
 
 app = Flask(__name__)
 
-RM3Device = broadlink.rm((environ["RM3_IP"], int(environ["RM3_PORT"])), netaddr.EUI(environ["RM3_MAC"]))
+RM3Device = broadlink.rm((environ["RM3_IP"], int(environ["RM3_PORT"])), netaddr.EUI(environ["RM3_MAC"]), 0x27c2)
 RM3Device.auth()
 
 commands = {
