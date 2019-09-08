@@ -7,7 +7,7 @@ name = "pypi"
 
 [packages]
 
-broadlink = {git = "https://github.com/mjg59/python-broadlink.git"}
+broadlink = {git = "https://github.com/mjg59/python-broadlink.git", ref = "8d3c9f1e9f7ad19f1c054ca3278670c8c9ea0eb1"}
 netaddr = "*"
 flask = "*"
 requests = "*"
